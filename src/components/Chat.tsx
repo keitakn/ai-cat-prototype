@@ -55,10 +55,14 @@ export const Chat: FC = () => {
           </div>
         </div>
       </div>
-      <form method="post" action="" className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0" onSubmit={handleSubmit}>
+      <form id="send-message" method="post" action="" className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0" onSubmit={handleSubmit} aria-label="send to message">
         <div className="relative flex">
-          <textarea placeholder="Write your message!"
-                 className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3" />
+          <textarea
+            id="message-input"
+            name="message-input"
+            placeholder="Write your message!"
+            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3"
+          />
         </div>
         <div className="flex flex-row-reverse mt-1">
           <button
