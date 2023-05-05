@@ -53,17 +53,16 @@ export const Chat: FC = () => {
       </div>
       <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
         <div className="relative flex">
-          {/*左側にアイコンを置くようになったら `pl-xx` の部分を `pl-12` 等に変更する*/}
-          <input type="text" placeholder="Write your message!"
+          <textarea placeholder="Write your message!"
                  className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3" />
-            <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
-              <button
-                type="button"
-                className="rounded-md bg-orange-500 px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Send
-              </button>
-            </div>
+        </div>
+        <div className="flex flex-row-reverse mt-1">
+          <button
+            type="button"
+            className="rounded-md bg-orange-500 px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Send
+          </button>
         </div>
       </div>
     </div>
