@@ -1,8 +1,12 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, FormEvent } from 'react';
 
 export const Chat: FC = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
       <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
@@ -51,20 +55,20 @@ export const Chat: FC = () => {
           </div>
         </div>
       </div>
-      <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+      <form method="post" action="" className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0" onSubmit={handleSubmit}>
         <div className="relative flex">
           <textarea placeholder="Write your message!"
                  className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3" />
         </div>
         <div className="flex flex-row-reverse mt-1">
           <button
-            type="button"
+            type="submit"
             className="rounded-md bg-orange-500 px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Send
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
