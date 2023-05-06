@@ -1,4 +1,3 @@
-import './globals.css';
 import { Noto_Sans_JP } from 'next/font/google';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
@@ -6,11 +5,11 @@ import type { Metadata } from 'next';
 const font = Noto_Sans_JP({ weight: '400', style: 'normal', subsets: ['cyrillic'] });
 
 export const metadata: Metadata = {
-  title: 'AI Cat🐱',
-  description: 'ねこのAIとお話しよう🐱',
+  title: 'AI Cat もこちゃん🐱',
+  description: 'ねこのAI（もこちゃん）とお話しよう🐱',
 }
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const ChatLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="ja">
       <body className={font.className}>
@@ -20,4 +19,4 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   )
 };
 
-export default RootLayout;
+export default ChatLayout;
