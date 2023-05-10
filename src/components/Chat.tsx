@@ -1,7 +1,6 @@
 'use client';
 
 import type { FC, FormEvent } from 'react';
-import {Footer} from "@/components/Footer";
 import {UserChatMessage} from "@/components/UserChatMessage";
 import {CatChatMessage} from "@/components/CatChatMessage";
 
@@ -24,7 +23,7 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
   };
 
   return (
-    <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen bg-yellow-100">
+    <>
       <div className="flex sm:items-center justify-between py-3 border-b-2 border-amber-200 bg-yellow-200">
         <div className="relative flex items-center space-x-4">
           <div className="relative">
@@ -45,7 +44,7 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
       </div>
       <div
         id="messages"
-        className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+        className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch bg-yellow-100"
       >
         {chatMessages.map((value, index) => {
           return (
@@ -53,7 +52,7 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
           )
         })}
       </div>
-      <div className="border-t-2 border-amber-200 px-4 pt-4 mb-2 sm:mb-0">
+      <div className="border-t-2 border-amber-200 px-4 pt-4 mb-2 sm:mb-0 bg-yellow-100">
         <form id="send-message" method="post" action="" onSubmit={handleSubmit} aria-label="send to message">
           <div className="relative flex">
           <textarea
@@ -73,7 +72,6 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
           </div>
         </form>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };

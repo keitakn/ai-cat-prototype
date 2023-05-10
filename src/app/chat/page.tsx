@@ -1,4 +1,5 @@
 import { Chat } from '@/components/Chat';
+import {ChatContentLayout} from "@/components/ChatContentLayout";
 
 const chatMessages = [
   { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' } as const,
@@ -21,9 +22,9 @@ const chatMessages = [
 
 const ChatPage = () => {
   return (
-    <div>
+    <ChatContentLayout>
       <Chat chatMessages={chatMessages} />
-    </div>
+    </ChatContentLayout>
   );
 };
 
