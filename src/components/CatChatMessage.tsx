@@ -18,6 +18,5 @@ export const CatChatMessage: FC<Props> = ({ message, avatarUrl, name }) => {
           alt={name} className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
       </div>
     </div>
-
   );
 };
