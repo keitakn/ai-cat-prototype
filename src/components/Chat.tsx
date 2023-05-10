@@ -59,8 +59,8 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
   };
 
   return (
-    <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen bg-white">
-      <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
+    <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen bg-yellow-100">
+      <div className="flex sm:items-center justify-between py-3 border-b-2 border-amber-200 bg-yellow-200">
         <div className="relative flex items-center space-x-4">
           <div className="relative">
             <img
@@ -88,14 +88,14 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
           )
         })}
       </div>
-      <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+      <div className="border-t-2 border-amber-200 px-4 pt-4 mb-2 sm:mb-0">
         <form id="send-message" method="post" action="" onSubmit={handleSubmit} aria-label="send to message">
           <div className="relative flex">
           <textarea
             id="message-input"
             name="message-input"
             placeholder="Write your message!"
-            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3"
+            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4  rounded-md py-3"
           />
           </div>
           <div className="flex flex-row-reverse mt-1">

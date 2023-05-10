@@ -10,7 +10,7 @@ export const CatChatMessage: FC<Props> = ({ message, avatarUrl, name }) => {
     <div className="chat-message">
       <div className="flex items-end">
         <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-          <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-100">{message}</span>
+          <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-white">{message}</span>
           </div>
         </div>
         <img
