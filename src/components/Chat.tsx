@@ -2,14 +2,64 @@
 
 import type { FC, FormEvent } from 'react';
 import {Footer} from "@/components/Footer";
+import {UserChatMessage} from "@/components/UserChatMessage";
+import {CatChatMessage} from "@/components/CatChatMessage";
 
-export const Chat: FC = () => {
+type ChatMessage = {
+  role: 'user' | 'cat';
+  name: string;
+  message: string;
+  avatarUrl: string;
+};
+
+type ChatMessages = ChatMessage[];
+
+const chatMessages: ChatMessages = [
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+  { role: 'user', name: 'User', message: 'こんにちはもこちゃん！お話しよう！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp' },
+  { role: 'user', name: 'User', message: 'ねこちゃんはチュール好きな子多いけど、もこちゃんは好きじゃないんだね！', avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4' },
+  { role: 'cat', name: 'もこちゃん', message: 'そうにゃ🐱もこはウェットフードが苦手だにゃ🐱Userさんの好きな食べ物を教えてにゃー！', avatarUrl: 'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp'},
+];
+
+type Props = {
+  chatMessages: ChatMessages;
+};
+
+export const Chat: FC<Props> = ({ chatMessages }) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
   return (
-    <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+    <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen bg-white">
       <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
         <div className="relative flex items-center space-x-4">
           <div className="relative">
@@ -28,138 +78,15 @@ export const Chat: FC = () => {
           {/*Buttonとかを並べるエリア*/}
         </div>
       </div>
-      <div id="messages"
-           className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-        {/*（自分のメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end justify-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">こんにちはもこちゃん！お話しよう！</span>
-              </div>
-            </div>
-            <img
-              src="https://avatars.githubusercontent.com/u/11032365?s=96&v=4"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（相手からのメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！</span>
-              </div>
-            </div>
-            <img
-              src="https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（自分のメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end justify-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">こんにちはもこちゃん！お話しよう！</span>
-              </div>
-            </div>
-            <img
-              src="https://avatars.githubusercontent.com/u/11032365?s=96&v=4"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（相手からのメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！</span>
-              </div>
-            </div>
-            <img
-              src="https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（自分のメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end justify-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">こんにちはもこちゃん！お話しよう！</span>
-              </div>
-            </div>
-            <img
-              src="https://avatars.githubusercontent.com/u/11032365?s=96&v=4"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（相手からのメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！</span>
-              </div>
-            </div>
-            <img
-              src="https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（自分のメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end justify-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">こんにちはもこちゃん！お話しよう！</span>
-              </div>
-            </div>
-            <img
-              src="https://avatars.githubusercontent.com/u/11032365?s=96&v=4"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（相手からのメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！</span>
-              </div>
-            </div>
-            <img
-              src="https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（自分のメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end justify-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">こんにちはもこちゃん！お話しよう！</span>
-              </div>
-            </div>
-            <img
-              src="https://avatars.githubusercontent.com/u/11032365?s=96&v=4"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
-        {/*（相手からのメッセージ）*/}
-        <div className="chat-message">
-          <div className="flex items-end">
-            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-              <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">こんにちはにゃん🐱もことお話しようにゃん！もこはねこだけど、チュールは苦手だにゃ🐱チキン味のカリカリしか食べないにゃん！</span>
-              </div>
-            </div>
-            <img
-              src="https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp"
-              alt="My profile" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
-          </div>
-        </div>
-
+      <div
+        id="messages"
+        className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+      >
+        {chatMessages.map((value, index) => {
+          return (
+            value.role === 'user' ? <UserChatMessage name={value.name} message={value.message} avatarUrl={value.avatarUrl} key={index} /> : <CatChatMessage name={value.name} message={value.message} avatarUrl={value.avatarUrl} key={index} />
+          )
+        })}
       </div>
       <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
         <form id="send-message" method="post" action="" onSubmit={handleSubmit} aria-label="send to message">
