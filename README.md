@@ -1,5 +1,6 @@
 # ai-cat-prototype
-ねこの人格を持ったAIとお話できるサービス（仮）技術検証用のプロジェクトで長期メンテはしない。正式版は https://github.com/nekochans で展開する予定。
+
+ねこの人格を持った AI とお話できるサービス（仮）技術検証用のプロジェクトで長期メンテはしない。正式版は https://github.com/nekochans で展開する予定。
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
