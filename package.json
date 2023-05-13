@@ -11,8 +11,6 @@
     "lint:eslint": "eslint --cache .",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "lint:next": "next lint",
-    "lint:stylelint": "stylelint './**/*.ts{,x}'",
-    "fix:stylelint": "npm run lint:stylelint -- --fix",
     "lint": "run-s lint:*",
     "format": "run-s fix:*"
   },
