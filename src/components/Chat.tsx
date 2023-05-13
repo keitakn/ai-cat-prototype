@@ -46,7 +46,7 @@ export const Chat: FC<Props> = ({ chatMessages }) => {
       </div>
       <div
         id="messages"
-        className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex flex-col space-y-4 overflow-y-auto bg-yellow-100 p-3"
+        className="flex flex-col space-y-4 overflow-y-auto bg-yellow-100 p-3"
       >
         {chatMessages.map((value, index) => {
           return value.role === 'user' ? (
