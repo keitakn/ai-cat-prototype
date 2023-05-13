@@ -1,5 +1,5 @@
 import './globals.css';
-import type { ReactNode } from 'react';
+import type { ReactNode, FC } from 'react';
 import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
 
@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   description: 'ねこのAIとお話しよう🐱',
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+type Props = {
+  children: ReactNode;
+};
+
+const RootLayout: FC<Props> = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="ja">
       <body className={font.className}>{children}</body>

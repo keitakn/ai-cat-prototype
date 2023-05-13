@@ -1,3 +1,4 @@
+import type { NextPage } from 'next';
 import { Chat } from '@/components/Chat';
 import { ChatContentLayout } from '@/components/ChatContentLayout';
 
@@ -120,7 +121,7 @@ const chatMessages = [
   } as const,
 ];
 
-const ChatPage = () => {
+const ChatPage: NextPage = () => {
   return (
     <ChatContentLayout>
       <Chat chatMessages={chatMessages} />
