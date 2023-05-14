@@ -1,6 +1,12 @@
 'use client';
 
-import { useRef, useState, type FC, type FormEvent } from 'react';
+import {
+  useRef,
+  useState,
+  type FC,
+  type FormEvent,
+  type KeyboardEvent,
+} from 'react';
 import { ChatMessagesList, type ChatMessages } from './ChatMessagesList';
 
 type Props = {
@@ -35,6 +41,17 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
     }
   };
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.shiftKey && event.key === 'Enter') {
+      const submitEvent = new Event('submit', {
+        bubbles: true,
+        cancelable: true,
+      });
+      event.currentTarget.form?.dispatchEvent(submitEvent);
+      event.preventDefault();
+    }
+  };
+
   return (
     <>
       <ChatMessagesList chatMessages={chatMessages} />
@@ -53,6 +70,7 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
               placeholder="Write your message!"
               className="w-full rounded-md py-3 pl-4 text-gray-600 placeholder:text-gray-600  focus:outline-none focus:placeholder:text-gray-400"
               ref={ref}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className="mt-1 flex flex-row-reverse">
