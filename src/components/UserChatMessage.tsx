@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import Image from 'next/image';
 
 type Props = {
   message: string;
@@ -16,8 +17,11 @@ export const UserChatMessage: FC<Props> = ({ message, avatarUrl, name }) => {
           </span>
         </div>
       </div>
-      <img
+      <Image
         src={avatarUrl}
+        // TODO width, heightの指定方法をどうするか後で考える
+        width={96}
+        height={96}
         alt={name}
         className="h-10 w-10 rounded-full sm:h-16 sm:w-16"
       />
