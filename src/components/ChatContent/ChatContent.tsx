@@ -67,7 +67,7 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
             <textarea
               id="message-input"
               name="message-input"
-              placeholder="Write your message!"
+              placeholder="Type your message here. Press Enter + Shift to send."
               className="w-full rounded-md py-3 pl-4 text-gray-600 placeholder:text-gray-600  focus:outline-none focus:placeholder:text-gray-400"
               ref={ref}
               onKeyDown={handleKeyDown}
