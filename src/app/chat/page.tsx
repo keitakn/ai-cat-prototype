@@ -123,7 +123,7 @@ const chatMessages = [
 const ChatPage: NextPage = () => {
   return (
     <ChatContentLayout>
-      <ChatContent chatMessages={chatMessages} />
+      <ChatContent initChatMessages={chatMessages} />
     </ChatContentLayout>
   );
 };

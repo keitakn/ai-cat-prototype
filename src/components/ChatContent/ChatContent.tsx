@@ -1,15 +1,38 @@
 'use client';
 
-import type { FC, FormEvent } from 'react';
+import { useRef, useState, type FC, type FormEvent } from 'react';
 import { ChatMessagesList, type ChatMessages } from './ChatMessagesList';
 
 type Props = {
-  chatMessages: ChatMessages;
+  initChatMessages: ChatMessages;
 };
 
-export const ChatContent: FC<Props> = ({ chatMessages }) => {
+export const ChatContent: FC<Props> = ({ initChatMessages }) => {
+  const [chatMessages, setChatMessages] =
+    useState<ChatMessages>(initChatMessages);
+
+  const ref = useRef<HTMLTextAreaElement>(null);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (ref.current?.value != null) {
+      const message = ref.current.value;
+
+      ref.current.value = '';
+
+      const newChatMessages = chatMessages.concat([
+        {
+          role: 'user',
+          name: 'user',
+          message,
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/11032365?s=96&v=4',
+        },
+      ]);
+
+      setChatMessages(newChatMessages);
+    }
   };
 
   return (
@@ -29,6 +52,7 @@ export const ChatContent: FC<Props> = ({ chatMessages }) => {
               name="message-input"
               placeholder="Write your message!"
               className="w-full rounded-md py-3 pl-4 text-gray-600 placeholder:text-gray-600  focus:outline-none focus:placeholder:text-gray-400"
+              ref={ref}
             />
           </div>
           <div className="mt-1 flex flex-row-reverse">
