@@ -27,15 +27,13 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
 
       ref.current.value = '';
 
-      const newChatMessages = chatMessages.concat([
-        {
-          role: 'user',
-          name: 'user',
-          message,
-          avatarUrl:
-            'https://avatars.githubusercontent.com/u/11032365?s=96&v=4',
-        },
-      ]);
+      const newUserMessage = {
+        role: 'user',
+        name: 'User',
+        message,
+        avatarUrl: 'https://avatars.githubusercontent.com/u/11032365?s=96&v=4',
+      } as const;
+      const newChatMessages = [...chatMessages, ...[newUserMessage]];
 
       setChatMessages(newChatMessages);
     }
