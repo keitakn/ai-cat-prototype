@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Footer } from "@/components/Footer";
+import { Footer } from '@/components/Footer';
 
 type Props = {
   children: ReactNode;
@@ -7,7 +7,7 @@ type Props = {
 
 export const ChatContentLayout: FC<Props> = ({ children }) => {
   return (
-    <main className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen bg-yellow-100">
+    <main className="flex h-screen flex-1 flex-col justify-between bg-yellow-100 p-2 sm:p-6">
       {children}
       <Footer />
     </main>
