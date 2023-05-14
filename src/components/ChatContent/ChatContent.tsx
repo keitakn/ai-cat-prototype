@@ -2,17 +2,7 @@
 
 import type { FC, FormEvent } from 'react';
 import Image from 'next/image';
-import { CatChatMessage } from '@/components/ChatContent/CatChatMessage';
-import { UserChatMessage } from '@/components/ChatContent/UserChatMessage';
-
-type ChatMessage = {
-  role: 'user' | 'cat';
-  name: string;
-  message: string;
-  avatarUrl: string;
-};
-
-type ChatMessages = ChatMessage[];
+import { ChatMessagesList, type ChatMessages } from './ChatMessagesList';
 
 type Props = {
   chatMessages: ChatMessages;
@@ -48,28 +38,7 @@ export const ChatContent: FC<Props> = ({ chatMessages }) => {
           {/* Buttonとかを並べるエリア */}
         </div>
       </div>
-      <div
-        id="messages"
-        className="flex flex-col space-y-4 overflow-y-auto bg-yellow-100 p-3"
-      >
-        {chatMessages.map((value, index) => {
-          return value.role === 'user' ? (
-            <UserChatMessage
-              name={value.name}
-              message={value.message}
-              avatarUrl={value.avatarUrl}
-              key={index}
-            />
-          ) : (
-            <CatChatMessage
-              name={value.name}
-              message={value.message}
-              avatarUrl={value.avatarUrl}
-              key={index}
-            />
-          );
-        })}
-      </div>
+      <ChatMessagesList chatMessages={chatMessages} />
       <div className="mb-2 border-t-2 border-amber-200 bg-yellow-100 px-4 pt-4 sm:mb-0">
         <form
           id="send-message"
