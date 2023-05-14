@@ -2,8 +2,8 @@
 
 import type { FC, FormEvent } from 'react';
 import Image from 'next/image';
-import { CatChatMessage } from '@/components/CatChatMessage';
-import { UserChatMessage } from '@/components/UserChatMessage';
+import { CatChatMessage } from '@/components/ChatContent/CatChatMessage';
+import { UserChatMessage } from '@/components/ChatContent/UserChatMessage';
 
 type ChatMessage = {
   role: 'user' | 'cat';
@@ -18,7 +18,7 @@ type Props = {
   chatMessages: ChatMessages;
 };
 
-export const Chat: FC<Props> = ({ chatMessages }) => {
+export const ChatContent: FC<Props> = ({ chatMessages }) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
