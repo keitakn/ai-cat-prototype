@@ -1,7 +1,6 @@
 'use client';
 
 import type { FC, FormEvent } from 'react';
-import { ChatHeader } from '@/components/ChatContent/ChatHeader';
 import { ChatMessagesList, type ChatMessages } from './ChatMessagesList';
 
 type Props = {
@@ -15,7 +14,6 @@ export const ChatContent: FC<Props> = ({ chatMessages }) => {
 
   return (
     <>
-      <ChatHeader />
       <ChatMessagesList chatMessages={chatMessages} />
       <div className="mb-2 border-t-2 border-amber-200 bg-yellow-100 px-4 pt-4 sm:mb-0">
         <form
