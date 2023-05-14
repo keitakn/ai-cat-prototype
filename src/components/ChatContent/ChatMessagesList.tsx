@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { useRef, useEffect, type FC } from 'react';
 import { CatChatMessage } from '@/components/ChatContent/CatChatMessage';
 import { UserChatMessage } from '@/components/ChatContent/UserChatMessage';
 
@@ -16,10 +16,19 @@ type Props = {
 };
 
 export const ChatMessagesList: FC<Props> = ({ chatMessages }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [chatMessages]);
+
   return (
     <div
       id="messages"
       className="flex flex-col space-y-4 overflow-y-auto bg-yellow-100 p-3"
+      ref={ref}
     >
       {chatMessages.map((value, index) => {
         return value.role === 'user' ? (
