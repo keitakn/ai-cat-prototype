@@ -8,6 +8,9 @@ type RequestBody = {
 type ResponseBody = {
   message: string;
 };
+
+export const runtime = 'edge';
+
 export async function POST(request: Request): Promise<NextResponse> {
   const requestBody = (await request.json()) as RequestBody;
 
@@ -17,7 +20,9 @@ export async function POST(request: Request): Promise<NextResponse> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${String(process.env.API_BASIC_AUTH_CREDENTIALS)}`,
+        Authorization: `Basic ${String(
+          process.env.API_BASIC_AUTH_CREDENTIALS
+        )}`,
       },
       body: JSON.stringify({ message: requestBody.message }),
     }
