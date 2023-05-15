@@ -9,6 +9,10 @@ import {
 } from 'react';
 import { ChatMessagesList, type ChatMessages } from './ChatMessagesList';
 
+type ResponseBody = {
+  message: string;
+};
+
 type Props = {
   initChatMessages: ChatMessages;
 };
@@ -19,7 +23,7 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
 
   const ref = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (ref.current?.value != null) {
@@ -36,6 +40,29 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
       const newChatMessages = [...chatMessages, ...[newUserMessage]];
 
       setChatMessages(newChatMessages);
+
+      const response = await fetch(`/api/cats`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ catName: 'moko', message }),
+      });
+      const body = (await response.json()) as ResponseBody;
+
+      const newCatMessage = {
+        role: 'cat',
+        name: 'もこちゃん',
+        message: body.message,
+        avatarUrl:
+          'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp',
+      } as const;
+
+      const newCatReplyContainedChatMessage = [
+        ...newChatMessages,
+        ...[newCatMessage],
+      ];
+      setChatMessages(newCatReplyContainedChatMessage);
     }
   };
 
