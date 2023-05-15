@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 import { ChatHeader } from '@/components/ChatContent/ChatHeader';
-import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/Footer/';
 
 type Props = {
   children: ReactNode;
