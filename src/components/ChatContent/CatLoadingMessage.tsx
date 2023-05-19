@@ -11,7 +11,7 @@ export const CatLoadingMessage: FC<Props> = ({ avatarUrl, name }) => {
       <div className="order-2 mx-2 flex max-w-xs flex-col items-start space-y-2 text-xs">
         <div>
           <span className="inline-block animate-pulse rounded-lg rounded-bl-none bg-white px-4 py-2">
-            {name}ちゃんが入力中・・・🐱
+            {name}が入力中・・・🐱
           </span>
         </div>
       </div>
