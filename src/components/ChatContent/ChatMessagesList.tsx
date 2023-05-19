@@ -1,5 +1,6 @@
 import { useRef, useEffect, type FC } from 'react';
 import { CatChatMessage } from '@/components/ChatContent/CatChatMessage';
+import { CatLoadingMessage } from '@/components/ChatContent/CatLoadingMessage';
 import { UserChatMessage } from '@/components/ChatContent/UserChatMessage';
 
 type ChatMessage = {
@@ -13,9 +14,10 @@ export type ChatMessages = ChatMessage[];
 
 type Props = {
   chatMessages: ChatMessages;
+  isLoading: boolean;
 };
 
-export const ChatMessagesList: FC<Props> = ({ chatMessages }) => {
+export const ChatMessagesList: FC<Props> = ({ chatMessages, isLoading }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,6 +49,14 @@ export const ChatMessagesList: FC<Props> = ({ chatMessages }) => {
           />
         );
       })}
+      {isLoading ? (
+        <CatLoadingMessage
+          name="もこちゃん"
+          avatarUrl="https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp"
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

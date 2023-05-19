@@ -18,6 +18,8 @@ type Props = {
 };
 
 export const ChatContent: FC<Props> = ({ initChatMessages }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [chatMessages, setChatMessages] =
     useState<ChatMessages>(initChatMessages);
 
@@ -25,6 +27,10 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isLoading) {
+      return;
+    }
 
     if (ref.current?.value != null) {
       const message = ref.current.value;
@@ -41,32 +47,45 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
 
       setChatMessages(newChatMessages);
 
-      const response = await fetch(`/api/cats`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ catName: 'moko', message }),
-      });
-      const body = (await response.json()) as ResponseBody;
+      setIsLoading(true);
 
-      const newCatMessage = {
-        role: 'cat',
-        name: 'もこちゃん',
-        message: body.message,
-        avatarUrl:
-          'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp',
-      } as const;
+      try {
+        const response = await fetch(`/api/cats`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ catName: 'moko', message }),
+        });
+        const body = (await response.json()) as ResponseBody;
 
-      const newCatReplyContainedChatMessage = [
-        ...newChatMessages,
-        ...[newCatMessage],
-      ];
-      setChatMessages(newCatReplyContainedChatMessage);
+        const newCatMessage = {
+          role: 'cat',
+          name: 'もこちゃん',
+          message: body.message,
+          avatarUrl:
+            'https://lgtm-images.lgtmeow.com/2022/03/23/10/9738095a-f426-48e4-be8d-93f933c42917.webp',
+        } as const;
+
+        const newCatReplyContainedChatMessage = [
+          ...newChatMessages,
+          ...[newCatMessage],
+        ];
+        setChatMessages(newCatReplyContainedChatMessage);
+      } catch (error) {
+        // TODO 後でちゃんとしたエラー処理をする
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isLoading) {
+      return;
+    }
+
     if (event.shiftKey && event.key === 'Enter') {
       const submitEvent = new Event('submit', {
         bubbles: true,
@@ -79,7 +98,7 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
 
   return (
     <>
-      <ChatMessagesList chatMessages={chatMessages} />
+      <ChatMessagesList chatMessages={chatMessages} isLoading={isLoading} />
       <div className="mb-2 border-t-2 border-amber-200 bg-yellow-100 px-4 pt-4 sm:mb-0">
         <form
           id="send-message"
@@ -102,6 +121,7 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
             <button
               type="submit"
               className="rounded-md bg-orange-500 px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              disabled={isLoading}
             >
               Send
             </button>
