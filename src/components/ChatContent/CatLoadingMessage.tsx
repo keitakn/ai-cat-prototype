@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import Image from 'next/image';
+import type { FC } from 'react';
 
 type Props = {
   avatarUrl: string;
