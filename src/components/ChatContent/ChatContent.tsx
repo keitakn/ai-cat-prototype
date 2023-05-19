@@ -98,7 +98,9 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
 
   const submitButtonBgColor = isLoading ? 'bg-orange-300' : 'bg-orange-500';
 
-  const submitButtonHoverColor = isLoading ? 'hover:bg-orange-200' : 'hover:bg-orange-400';
+  const submitButtonHoverColor = isLoading
+    ? 'hover:bg-orange-200'
+    : 'hover:bg-orange-400';
 
   return (
     <>
