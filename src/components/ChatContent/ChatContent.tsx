@@ -96,6 +96,10 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
     }
   };
 
+  const submitButtonBgColor = isLoading ? 'bg-orange-300' : 'bg-orange-500';
+
+  const submitButtonHoverColor = isLoading ? 'hover:bg-orange-200' : 'hover:bg-orange-400';
+
   return (
     <>
       <ChatMessagesList chatMessages={chatMessages} isLoading={isLoading} />
@@ -120,7 +124,7 @@ export const ChatContent: FC<Props> = ({ initChatMessages }) => {
           <div className="mt-1 flex flex-row-reverse">
             <button
               type="submit"
-              className="rounded-md bg-orange-500 px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className={`${submitButtonBgColor} ${submitButtonHoverColor} rounded-md px-4 py-3.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
               disabled={isLoading}
             >
               Send
