@@ -1,7 +1,7 @@
-import { useRef, useEffect, type FC } from 'react';
 import { CatChatMessage } from '@/components/ChatContent/CatChatMessage';
 import { CatLoadingMessage } from '@/components/ChatContent/CatLoadingMessage';
 import { UserChatMessage } from '@/components/ChatContent/UserChatMessage';
+import { type FC, useEffect, useRef } from 'react';
 
 type ChatMessage = {
   role: 'user' | 'cat';

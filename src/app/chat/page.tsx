@@ -1,5 +1,5 @@
-import type { NextPage } from 'next';
 import { ChatContent, ChatContentLayout } from '@/components';
+import type { NextPage } from 'next';
 
 const chatMessages = [
   {
